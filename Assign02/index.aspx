@@ -178,6 +178,8 @@
             <asp:Label ID="myName" runat="server" Text="Label"></asp:Label>
 
             <asp:Label ID="results" runat="server" Text="Label"></asp:Label>
+
+            <asp:HyperLink ID="HyperLink1" NavigateUrl="table.aspx" runat="server">Click here to go to table.aspx</asp:HyperLink>
         </div>
     </form>
 </body>
