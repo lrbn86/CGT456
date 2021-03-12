@@ -42,6 +42,15 @@ namespace Project1
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
+        /// GameStatusMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label GameStatusMessage;
+
+        /// <summary>
         /// BankAmount control.
         /// </summary>
         /// <remarks>
@@ -57,16 +66,16 @@ namespace Project1
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList DealerHand;
+        protected global::System.Web.UI.WebControls.Label DealerHand;
 
         /// <summary>
-        /// YourHand control.
+        /// PlayerHand control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList YourHand;
+        protected global::System.Web.UI.WebControls.Label PlayerHand;
 
         /// <summary>
         /// BetAmount control.
@@ -222,6 +231,15 @@ namespace Project1
         protected global::System.Web.UI.WebControls.Button HitButton;
 
         /// <summary>
+        /// StandButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button StandButton;
+
+        /// <summary>
         /// DoubleButton control.
         /// </summary>
         /// <remarks>
@@ -238,14 +256,5 @@ namespace Project1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SplitButton;
-
-        /// <summary>
-        /// StandButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button StandButton;
     }
 }

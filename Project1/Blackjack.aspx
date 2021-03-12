@@ -13,16 +13,13 @@
 		<asp:UpdatePanel id="UpdatePanel1" runat="server">
 			<ContentTemplate>
 				<div>
-					Bank: $<asp:Label id="BankAmount" runat="server" text="100"></asp:Label>
+					<asp:Label ID="GameStatusMessage" runat="server"></asp:Label>
 				</div>
-				<span>Dealer's Hand</span>
-                <asp:BulletedList id="DealerHand" runat="server">
-					<asp:ListItem>Wow</asp:ListItem>
-                </asp:BulletedList>
-				<span>Your Hand</span>
-                <asp:BulletedList id="YourHand" runat="server">
-					<asp:ListItem>Wow</asp:ListItem>
-                </asp:BulletedList>
+				<div>
+					Bank: $<asp:Label id="BankAmount" runat="server"></asp:Label>
+				</div>
+				<div>Dealer's Current Hand: <asp:Label ID="DealerHand" runat="server">0</asp:Label></div>
+				<div>Your Current Hand: <asp:Label ID="PlayerHand" runat="server">0</asp:Label></div>
 				<asp:Textbox ID="BetAmount" placeholder="Bet Amount" runat="server"></asp:Textbox>
 				<div id="NumPad">
 					<asp:Button id="Button0" class="NumberButton" runat="server" text="0" OnClick="NumPadClicked"/>
@@ -43,13 +40,13 @@
 				<div>
 					<asp:Button id="AllInButton" runat="server" text="All In" OnClick="AllInBet"/>
 					<asp:Button ID="ClearBetButton" runat="server" text="Clear Bet" OnClick="ClearBet"/>
-					<asp:Button id="DealButton" runat="server" text="Deal"/>
+					<asp:Button id="DealButton" runat="server" text="Deal" OnClick="Deal"/>
 				</div>
 				<div>
-					<asp:Button id="HitButton" runat="server" text="Hit"/>
+					<asp:Button id="HitButton" runat="server" text="Hit" OnClick="Hit"/>
+					<asp:Button id="StandButton" runat="server" text="Stand" OnClick="Stand"/>
 					<asp:Button id="DoubleButton" runat="server" text="Double"/>
 					<asp:Button id="SplitButton" runat="server" text="Split"/>
-					<asp:Button id="StandButton" runat="server" text="Stand"/>
 				</div>
 			</ContentTemplate>
 		</asp:UpdatePanel>
