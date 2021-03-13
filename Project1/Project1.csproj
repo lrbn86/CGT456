@@ -67,8 +67,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BGM.wav" />
+    <Content Include="BGM2.wav" />
+    <Content Include="BGM3.wav" />
+    <Content Include="BGM4.wav" />
+    <Content Include="BGM5.wav" />
     <Content Include="Blackjack.aspx" />
+    <Content Include="ButtonPress.wav" />
+    <Content Include="Sound.js" />
     <Content Include="styles.css" />
+    <Content Include="TapNumbers.aspx" />
+    <Content Include="tapnumbers.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +89,13 @@
       <DependentUpon>Blackjack.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TapNumbers.aspx.cs">
+      <DependentUpon>TapNumbers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TapNumbers.aspx.designer.cs">
+      <DependentUpon>TapNumbers.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

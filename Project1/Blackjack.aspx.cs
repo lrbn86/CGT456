@@ -11,6 +11,8 @@ namespace Project1
     public partial class Blackjack : System.Web.UI.Page
     {
 
+		private Random random = new Random(); // Used to generate a random integer.
+
 		protected void Page_Load(object sender, EventArgs e)
         {
 			// Set initial values for variables
@@ -27,13 +29,14 @@ namespace Project1
 		// Page_Load will call this method.
 		protected void StartGame()
 		{
+			SetGameStatusMessage("Player is setting bet...");
 			BetAmount.Text = "0";
             Session["maxBankAmount"] = "1000";
 			BankAmount.Text = Session["maxBankAmount"].ToString();
 			DealButton.Enabled = false;
 			HitButton.Enabled = false;
 			DoubleButton.Enabled = false;
-			SplitButton.Enabled = false;
+			//QuitButton.Enabled = false;
 			StandButton.Enabled = false;
 			BetAmount.ReadOnly = true;
 		} // end StartGame
@@ -44,6 +47,9 @@ namespace Project1
 
 		protected void NumPadClicked(object sender, EventArgs e)
 		{
+			DealerHand.Text = "0"; // Set Dealer's hand back to 0
+			PlayerHand.Text = "0"; // Set Player's hand back to 0
+
 			Button numButton = (Button)sender;
 			int num = Convert.ToInt32(numButton.Text);
 
@@ -64,11 +70,10 @@ namespace Project1
             }
 		} // end NumPadClicked
 
-		// Get a random card (a card represents numbers from 1 - 10)
 		protected int GetRandomCard()
-		{
-			return new Random().Next(1, 10); // Return a number between 1 and 10.
-		} // end GetRandomCard
+        {
+			return random.Next(1, 10); // A random number will be generated/returned between 1 and 10 each time this function is called.
+        }
 
 		protected void AllInBet(object sender, EventArgs e)
 		{
@@ -90,7 +95,7 @@ namespace Project1
 
 		protected void Deal(object sender, EventArgs e)
 		{
-			Session["maxBankAmount"] = BankAmount.Text; // Update the maxBankAmount after subtracting bet amount from bank amount
+			SetGameStatusMessage("Player has locked in their bet. Select Hit, Stand, or Double.");
 			AllInButton.Enabled = false; // The player can no longer place any more bets
 			ClearBetButton.Enabled = false; // The player can no longer clear bets
 			DisableNumberButtons();
@@ -100,85 +105,135 @@ namespace Project1
 			DoubleButton.Enabled = true; // The player can now double their bet. TODO
 			StandButton.Enabled = true; // The player can now stand their current hand
 
-			// The Dealer will initally have one card shown and one card hidden (i.e. only one number shown)
-			DealerHand.Text = GetRandomCard().ToString(); // Randomize Dealer's hand
+			// Normally, the Dealer's hand will initally have one random card shown and one random card hidden
+			// However, the Dealer will show both cards for simplicity sake.
+			for (int i = 0; i < 2; i++)
+            {
+				DealerHand.Text = (Convert.ToInt32(DealerHand.Text) + GetRandomCard()).ToString();
+            }
 
 			// The player will initially have two random cards
-			PlayerHand.Text = (GetRandomCard() + GetRandomCard()).ToString(); // Randomize Player's hand
+			for (int i = 0; i < 2; i++)
+            {
+				PlayerHand.Text = (Convert.ToInt32(PlayerHand.Text) + GetRandomCard()).ToString();
+            }
+
+			// When player's hand is equal to dealer's hand, nothing happens and reset interface.
+			if (Convert.ToInt32(PlayerHand.Text) == Convert.ToInt32(DealerHand.Text))
+			{
+				Tie();
+			}
+
+			// When player's hand is equal to dealer's hand, nothing happens and reset interface.
 		} // end Deal
 
 		protected void Hit(object sender, EventArgs e)
 		{
+			SetGameStatusMessage("Player have decided to hit. Continue to hit or stand?");
 			// Player will choose to hit if they believe they can achieve blackjack or get a hand greater than Dealer's.
 
 			PlayerHand.Text = (Convert.ToInt32(PlayerHand.Text) + GetRandomCard()).ToString(); // Each hit will increase Player's hand by a random amount between 1 and 10.
 
-			if (Convert.ToInt32(PlayerHand.Text) > 21) // If the Player's hand goes over 21, they have busted and lost their bet.
+			// When player's hand is equal to dealer's hand, nothing happens and reset interface.
+			if (Convert.ToInt32(PlayerHand.Text) == Convert.ToInt32(DealerHand.Text))
 			{
-				SetGameStatusMessage("Player busted");
+				Tie();
+			}
+			else if (Convert.ToInt32(PlayerHand.Text) > 21) // If the Player's hand goes over 21, they have busted and lost their bet.
+			{
+				SetGameStatusMessage("Player busted. You have lost your bet. Continue playing by making another bet.");
 				PlayerLost();
             } 
 			else if (Convert.ToInt32(PlayerHand.Text) == 21) // The player hand hits a blackjack and wins
             {
-				SetGameStatusMessage("Player hits Blackjack!");
+				SetGameStatusMessage("Player hits Blackjack! You have won your bet. Continue playing by making another bet.");
 				// The player will receive back the original bet and (1.5 * bet amount)
 				Session["maxBankAmount"] = (Convert.ToInt32(Session["maxBankAmount"]) + (Convert.ToInt32(BetAmount.Text) * 1.5));
+				BankAmount.Text = Session["maxBankAmount"].ToString();
+				NewBet();
             }
 		} // end Hit
 
-		// TODO: FIx some things here...
 		protected void Stand(object sender, EventArgs e)
 		{
+			SetGameStatusMessage("Player have decided to stand. Dealer will now reveal hand.");
 			// Player will choose to stand if they believe they might bust if they hit one more time or confident that they will get a hand greater than Dealer's.
 			HitButton.Enabled = false; // The player will no longer be able to hit.
-			DisableNumberButtons();
+			DisableNumberButtons(); // The player will no longer be able to input any digits
 
-			// TODO: May need to redo this while loop or make another if statement
-			// Dealer's hand will be revealed once player stands.
-			while (Convert.ToInt32(DealerHand.Text) < 21)
+			
+			// Dealer's hand will be fully revealed once player stands.
+			// If the Dealer's hand is <= 16, then they must take a card.
+			while (Convert.ToInt32(DealerHand.Text) <= 16)
             {
-				if (Convert.ToInt32(DealerHand.Text) > Convert.ToInt32(PlayerHand.Text))
-                {
-					break;
-                }
-				DealerHand.Text = (Convert.ToInt32(DealerHand.Text) + GetRandomCard()).ToString();
+				DealerHand.Text = (Convert.ToInt32(DealerHand.Text) + GetRandomCard()).ToString(); // Dealer takes a random card (a random number)
             }
 
-			if (Convert.ToInt32(DealerHand.Text) > 21)
-            {
-				SetGameStatusMessage("Dealer busted");
-				// Dealer busted
-				DealerLost();
-            }
-			else if (Convert.ToInt32(DealerHand.Text) < Convert.ToInt32(PlayerHand.Text) && Convert.ToInt32(PlayerHand.Text) <= 21)
-            {
-				// TODO: Based on the while if loop, this will never execute!
-				SetGameStatusMessage("Dealer's hand is less than player's hand");
-				// Dealer's hand is less than player's hand and player did not bust
-				DealerLost();
-            }
+			// At this point, the Dealer will have a hand that is >= 17.
+			//PlayerHand.Text = "21";
+			DealerHand.Text = "21";
 
-			if (Convert.ToInt32(DealerHand.Text) == 21)
+			// When player's hand is equal to dealer's hand, nothing happens and reset interface. (e.g. Player may have 17 and Dealer may have 17)
+			if (Convert.ToInt32(PlayerHand.Text) == Convert.ToInt32(DealerHand.Text))
+			{
+				Tie();
+			} 
+			else
             {
-				SetGameStatusMessage("Dealer hits Blackjack!");
-				// Dealer hits blackjack and wins
-				PlayerLost();
-            }
-			else if (Convert.ToInt32(DealerHand.Text) > Convert.ToInt32(PlayerHand.Text) && Convert.ToInt32(DealerHand.Text) <= 21)
-            {
-				SetGameStatusMessage("Dealer's hand is greater than player's hand");
-				// The Dealer's hand is greater than player's hand without busting
-				PlayerLost();
-            }
+				if (Convert.ToInt32(DealerHand.Text) > 21)
+				{
+					// Check whether the Dealer have busted (have a hand greater than 21)
+					SetGameStatusMessage("Dealer busted. You have won your bet. Continue playing by making another bet.");
+					// Dealer busted
+					DealerLost();
+				}
+				else if (Convert.ToInt32(DealerHand.Text) < Convert.ToInt32(PlayerHand.Text) && Convert.ToInt32(PlayerHand.Text) < 21)
+				{
+					// Check whether the player's hand is greater than the dealer's hand (e.g. Dealer may have 17, but Player may have 19)
+					SetGameStatusMessage("Dealer's hand is less than player's hand. You have won your bet. Continue playing by making another bet.");
+					// Dealer's hand is less than player's hand and player did not bust
+					DealerLost();
+				}
+
+				if (Convert.ToInt32(DealerHand.Text) == 21)
+				{
+					// If Dealer's hand is exactly 21, then they win a blackjack and Player loses bet.
+					SetGameStatusMessage("Dealer hits Blackjack! You have lost your bet. Continue playing by making another bet.");
+					// Dealer hits blackjack and wins
+					PlayerLost();
+				}
+				else if (Convert.ToInt32(DealerHand.Text) > Convert.ToInt32(PlayerHand.Text) && Convert.ToInt32(DealerHand.Text) <= 21)
+				{
+					// Check whether dealer's hand is greater than player's hand (e.g. Dealer may have 17, but Player may have 16)
+					SetGameStatusMessage("Dealer's hand is greater than player's hand. You have lost your bet. Contiue playing by making another bet.");
+					// The Dealer's hand is greater than player's hand without busting
+					PlayerLost();
+				}
+			}
 		} // end Stand
 
-		//protected void Double(object sender, EventArgs e)
-		//{
-		//} // end Double
+		protected void Double(object sender, EventArgs e)
+		{
+			// Give player a chance to double their bet now that the hands are shown.
+			// The player cannot undo betting double.
+			BetAmount.Text = (Convert.ToInt32(BetAmount.Text) * 2).ToString();
 
-		//protected void Split(object sender, EventArgs e)
+			int newBetAmount = Convert.ToInt32(BetAmount.Text);
+			int newBankAmount = Convert.ToInt32(BankAmount.Text) - newBetAmount;
+
+			// Only display the new amounts when newBetAmount is less than newBankAmount
+			if (newBetAmount <= newBankAmount)
+			{
+				BetAmount.Text = newBetAmount.ToString();
+				BankAmount.Text = newBankAmount.ToString();
+			}
+
+			DoubleButton.Enabled = false; // They can only double once per bet.
+		} // end Double
+
+		//protected void Quit(object sender, EventArgs e)
 		//{
-		//} // end Split
+		//} // end Quit
 
 		protected void PlayerLost()
         {
@@ -186,25 +241,32 @@ namespace Project1
 			// 1. Player busted
 			// 2. Dealer's hand hit 21
 			// 3. Dealer's hand is more than Player's hand, but the Dealer does not bust as well
-
+			Session["maxBankAmount"] = BankAmount.Text;
 			// Reset interface for new bet.
 			NewBet();
 		} // end PlayerLost
 
 		protected void DealerLost()
         {
-			Session["maxBankAmount"] = Convert.ToInt32(Session["maxBankAmount"]) + (Convert.ToInt32(BetAmount.Text) * 2);
+			// Dealer lost conditions:
+			// 1. Dealer busted
+			// 2. Dealer's hand is less than Player's hand
+			Session["maxBankAmount"] = Convert.ToInt32(BankAmount.Text) + (Convert.ToInt32(BetAmount.Text) * 2);
 			BankAmount.Text = Session["maxBankAmount"].ToString();
 			// Reset interface for new bet.
 			NewBet();
         } // end DealerLost
 
+		protected void Tie()
+        {
+			BankAmount.Text = Session["maxBankAmount"].ToString();
+			SetGameStatusMessage("Dealer and Player have the same hands. No wins or losses. Continue playing by making another bet.");
+			NewBet();
+        } // end Tie
+
 		protected void NewBet()
         {
 			BetAmount.Text = "0"; // Clear bet amount
-			DealerHand.Text = "0"; // Set Dealer's hand back to 0
-			PlayerHand.Text = "0"; // Set Player's hand back to 0
-
 			AllInButton.Enabled = true; // The player can now all in bet
 			ClearBetButton.Enabled = true; // The player can now clear bet
 			EnableNumberButtons(); // The player can now input digits

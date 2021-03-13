@@ -1,3 +1,4 @@
+C:\Users\Brandon\Desktop\cgt456\Project1\obj\Debug\Project1.csproj.CoreCompileInputs.cache
 C:\Users\Brandon\Desktop\cgt456\Project1\bin\Project1.dll.config
 C:\Users\Brandon\Desktop\cgt456\Project1\bin\Project1.dll
 C:\Users\Brandon\Desktop\cgt456\Project1\bin\Project1.pdb
@@ -52,7 +53,7 @@ C:\Users\Brandon\Desktop\cgt456\Project1\bin\roslyn\VBCSCompiler.exe
 C:\Users\Brandon\Desktop\cgt456\Project1\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Brandon\Desktop\cgt456\Project1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Brandon\Desktop\cgt456\Project1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Brandon\Desktop\cgt456\Project1\obj\Debug\Project1.csproj.CoreCompileInputs.cache
 C:\Users\Brandon\Desktop\cgt456\Project1\obj\Debug\Project1.csproj.CopyComplete
 C:\Users\Brandon\Desktop\cgt456\Project1\obj\Debug\Project1.dll
 C:\Users\Brandon\Desktop\cgt456\Project1\obj\Debug\Project1.pdb
+C:\Users\Brandon\Desktop\cgt456\Project1\obj\Debug\Project1.csprojAssemblyReference.cache

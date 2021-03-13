@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Blackjack</title>
+    <title>Simple Blackjack</title>
 	<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<asp:UpdatePanel id="UpdatePanel1" runat="server">
 			<ContentTemplate>
 				<div>
-					<asp:Label ID="GameStatusMessage" runat="server"></asp:Label>
+					Status: <asp:Label ID="GameStatusMessage" runat="server"></asp:Label>
 				</div>
 				<div>
 					Bank: $<asp:Label id="BankAmount" runat="server"></asp:Label>
@@ -45,8 +45,8 @@
 				<div>
 					<asp:Button id="HitButton" runat="server" text="Hit" OnClick="Hit"/>
 					<asp:Button id="StandButton" runat="server" text="Stand" OnClick="Stand"/>
-					<asp:Button id="DoubleButton" runat="server" text="Double"/>
-					<asp:Button id="SplitButton" runat="server" text="Split"/>
+					<asp:Button id="DoubleButton" runat="server" text="Double" OnClick="Double"/>
+					<asp:Button id="QuitButton" runat="server" text="Quit"/>
 				</div>
 			</ContentTemplate>
 		</asp:UpdatePanel>
