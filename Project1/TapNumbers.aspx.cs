@@ -9,58 +9,82 @@ namespace Project1
 {
     public partial class TapNumbers : System.Web.UI.Page
     {
-        private Random random = new Random();
+        private Random random = new Random(); // This will be used to generate random integers. 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                StopTimer();
-                Session["maxTime"] = 100;
-                ResetTimerDisplay();
+                StopTimer(); // The timer will initally not be running
+                Session["maxTime"] = 100; // Set the max (initial) time to be 100
+                ResetTimerDisplay(); // Reset the timer
+                DisableNumberButtons(); // Disable the number buttons
+                QuitGameButton.Enabled = false; // The quit game button will not be clickable
+                QuitGameButton.Visible = false; // The quit game button will not be viewable
             }
         }
 
         protected void StartGame(object sender, EventArgs e)
         {
-            Message.Text = "";
-            EnableNumberButtons();
-            IncreaseTimeButton.Enabled = false;
-            DecreaseTimeButton.Enabled = false;
-            StartGameButton.Enabled = false;
-            StartTimer();
-            KeyLabel.Text = random.Next(0, 9).ToString();
+            Introduction.Visible = false; // The game introduction message will no longer be in view
+            Message.Text = "Tap the number that corresponds to the number in the white box.";
+            EnableNumberButtons(); // Enable the number buttons
+            IncreaseTimeButton.Enabled = false; // The player can no longer increase the time
+            DecreaseTimeButton.Enabled = false; // The player can no longer decrease the time
+            StartGameButton.Enabled = false; // The player can no longer the start the game because the game is already playing
+            StartGameButton.Visible = false; // The player can no longer see the start game button
+            IncreaseTimeButton.Visible = false; // The player can no longer see the increase timer button
+            DecreaseTimeButton.Visible = false; // The player can no longer see the decrease timer button
+            QuitGameButton.Enabled = true; // The quit game button is now clickable
+            QuitGameButton.Visible = true; // The quit game button will now be viewable
+            StartTimer(); // Start the timer
+            KeyLabel.Text = random.Next(0, 9).ToString(); // A randon number will be shown in the key label
         } // end StartGame
 
+        // This function is called when the player clicks the Quit Game button
         protected void QuitGame(object sender, EventArgs e)
         {
-            IncreaseTimeButton.Enabled = true;
-            DecreaseTimeButton.Enabled = true;
-            StartGameButton.Enabled = true;
-            ResetTimerDisplay();
-            StopTimer();
-            ResetScore();
+            Introduction.Visible = true; // Bring back the game introduction message into view
+            IncreaseTimeButton.Enabled = true; // Enable the increase timer button
+            DecreaseTimeButton.Enabled = true; // Enable the decrease timer button
+            StartGameButton.Enabled = true; // Enable the start game button
+            StartGameButton.Visible = true; // Bring back the start game button into view
+            IncreaseTimeButton.Visible = true; // Bring back the increase timer button back into view
+            DecreaseTimeButton.Visible = true; // Bring back the decrease timer button back into view
+            QuitGameButton.Enabled = false; // The quit game button will not be clickable
+            QuitGameButton.Visible = false; // The quit game button will not be viewable
+            DisableNumberButtons(); // Disable the number buttons
+            ResetTimerDisplay(); // Reset the timer
+            StopTimer(); // Stop the timer
+            ResetScore(); // Reset the score
+            Message.Text = "You have quit the current game session. Click 'Start Game' for a new game session.";
             KeyLabel.Text = "";
         } // end QuitGame
 
+        // This function is called whenever a number button is clicked
+        // It will also resolve whether the player tapped the right number
         protected void NumPadClicked(object sender, EventArgs e)
         {
-            int input = Convert.ToInt32(((Button)sender).Text);
-            int expectedAnswer = Convert.ToInt32(KeyLabel.Text);
+            int input = Convert.ToInt32(((Button)sender).Text); // Cast the clicked number button into an integer 
+            int expectedAnswer = Convert.ToInt32(KeyLabel.Text); // Grab the key label integer
             
-            // If player hits the right button, they get a score. Otherwise, they lose points and time.
+            // If player hits the right button, they get increased score. Otherwise, they lose time.
             if (input == expectedAnswer)
             {
+                string[] correctAnswerMessages = { "Nice!", "Great Job!", "You got it!" };
                 IncreaseScore();
+                Message.Text = correctAnswerMessages[random.Next(0, correctAnswerMessages.Length)];
             } 
             else
             {
+                string[] wrongAnswerMessages = { "You lost time!", "Be careful!", "Uh-oh!" };
+                Message.Text = wrongAnswerMessages[random.Next(0, wrongAnswerMessages.Length)];
                 DecreaseScore();
                 DecreaseTime();
             }
 
             KeyLabel.Text = random.Next(0, 9).ToString(); // Get a new key
-            RandomizeNumberButtons(); // Move the numbers around
+            RandomizeNumberButtons(); // Move the numbers around in the number buttons
 
         } // end NumPadClicked
 
@@ -97,10 +121,9 @@ namespace Project1
             if (Convert.ToInt32(TimerLabel.Text) <= 0)
             {
                 // The game is over when the timer reaches 0
-                // TODO
-                Message.Text = "Time's up!";
+                Message.Text = "Time's up! Your final score is shown below. You may now tap the 'Quit Game'";
                 KeyLabel.Text = "";
-               // DisableNumberButtons();
+                DisableNumberButtons();
             }
 
             // Keep decreasing time by one, but make sure it doesn't go below 0.

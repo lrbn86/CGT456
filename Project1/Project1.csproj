@@ -67,14 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BGM.wav" />
-    <Content Include="BGM2.wav" />
-    <Content Include="BGM3.wav" />
-    <Content Include="BGM4.wav" />
-    <Content Include="BGM5.wav" />
     <Content Include="Blackjack.aspx" />
-    <Content Include="ButtonPress.wav" />
-    <Content Include="Sound.js" />
     <Content Include="styles.css" />
     <Content Include="TapNumbers.aspx" />
     <Content Include="tapnumbers.css" />

@@ -42,6 +42,15 @@ namespace Project1
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
+        /// Introduction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Introduction;
+
+        /// <summary>
         /// Message control.
         /// </summary>
         /// <remarks>
@@ -51,22 +60,13 @@ namespace Project1
         protected global::System.Web.UI.WebControls.Label Message;
 
         /// <summary>
-        /// StartGameButton control.
+        /// ScoreLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button StartGameButton;
-
-        /// <summary>
-        /// QuitGameButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button QuitGameButton;
+        protected global::System.Web.UI.WebControls.Label ScoreLabel;
 
         /// <summary>
         /// TimerLabel control.
@@ -103,15 +103,6 @@ namespace Project1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.Timer Timer1;
-
-        /// <summary>
-        /// ScoreLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ScoreLabel;
 
         /// <summary>
         /// KeyLabel control.
@@ -211,5 +202,23 @@ namespace Project1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button9;
+
+        /// <summary>
+        /// StartGameButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button StartGameButton;
+
+        /// <summary>
+        /// QuitGameButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button QuitGameButton;
     }
 }
