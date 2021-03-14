@@ -15,29 +15,37 @@
 				<ContentTemplate>
 					<div id="Introduction" class="Panel" runat="server">
 						<p>Welcome to Tap Numbers. The game objective is to tap number that corresponds to the number in the white box.</p>
-						<p>Begin first by setting a time limit. The time limit will be locked in when you start the game.</p>
+						<p>Select a game difficulty and set a comfortable time limit. Setting game difficulty to 'Hard' will make the timer go down much faster.</p>
 						<p>Each incorrect number tapped will deduct the timer by 30. When the time is up, the game is over.</p>
 						<p>You may quit the game at any time. The timer and score will reset.</p>
+					</div>
+					<div id="GameDifficulty" class="Panel" runat="server">
+						<p>Select game difficulty:</p>
+						<div><asp:RadioButton ID="EasyMode" Text=" Easy" GroupName="Difficulty" runat="server" Checked="true"/></div>
+						<div><asp:RadioButton ID="MediumMode" Text=" Medium" GroupName="Difficulty" runat="server"/></div>
+						<div><asp:RadioButton ID="HardMode" Text=" Hard" GroupName="Difficulty" runat="server"/></div>
 					</div>
 					<div class="Panel">
 						<div>
 							Game Message: <asp:Label ID="Message" runat="server">Click 'Start Game' to begin playing.</asp:Label>
 						</div>
 					</div>
-					<div class="Panel">
-						Score: <asp:Label ID="ScoreLabel" runat="server" Text="0"></asp:Label>
-					</div>
-					<div class="Panel">
-						Timer: <asp:Label ID="TimerLabel" runat="server" Text="10"></asp:Label>
-						<div>
-							<asp:Button ID="IncreaseTimeButton" CssClass="MenuButton" runat="server" Text="+30"  OnClick="IncreaseTimer"/>
-							<asp:Button ID="DecreaseTimeButton" CssClass="MenuButton" runat="server" Text="-30" OnClick="DecreaseTimer"/>
+					<div id="GameArea">
+						<div class="Panel">
+							Score: <div class="InnerPanel"><asp:Label ID="ScoreLabel" runat="server" Text="0"></asp:Label></div>
 						</div>
-						<asp:Timer ID="Timer1" runat="server" Interval="900" OnTick="Count_Down"></asp:Timer>
-					</div>
-					<div id="KeyPanel"> 
-						<div class="InnerPanel">
-							<asp:Label ID="KeyLabel" CssClass="KeyLabel" runat="server"></asp:Label>
+						<div id="KeyPanel"> 
+							<div class="InnerPanel">
+								<asp:Label ID="KeyLabel" CssClass="KeyLabel" runat="server"></asp:Label>
+							</div>
+						</div>
+						<div class="Panel">
+							Timer: <div class="InnerPanel"><asp:Label ID="TimerLabel" runat="server" Text="10"></asp:Label></div>
+							<div>
+								<asp:Button ID="IncreaseTimeButton" CssClass="MenuButton" runat="server" Text="+30"  OnClick="IncreaseTimer"/>
+								<asp:Button ID="DecreaseTimeButton" CssClass="MenuButton" runat="server" Text="-30" OnClick="DecreaseTimer"/>
+							</div>
+							<asp:Timer ID="Timer1" runat="server" Interval="1000" OnTick="Count_Down"></asp:Timer>
 						</div>
 					</div>
 					<div id="NumPad" class="Panel">

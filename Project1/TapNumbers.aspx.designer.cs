@@ -51,6 +51,42 @@ namespace Project1
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Introduction;
 
         /// <summary>
+        /// GameDifficulty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl GameDifficulty;
+
+        /// <summary>
+        /// EasyMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton EasyMode;
+
+        /// <summary>
+        /// MediumMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton MediumMode;
+
+        /// <summary>
+        /// HardMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton HardMode;
+
+        /// <summary>
         /// Message control.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,15 @@ namespace Project1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label ScoreLabel;
+
+        /// <summary>
+        /// KeyLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label KeyLabel;
 
         /// <summary>
         /// TimerLabel control.
@@ -103,15 +148,6 @@ namespace Project1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.Timer Timer1;
-
-        /// <summary>
-        /// KeyLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label KeyLabel;
 
         /// <summary>
         /// Button0 control.

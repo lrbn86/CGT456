@@ -11,8 +11,8 @@
 }
 
 .NumberButton:enabled {
-    background-color: #F2545B;
-    color: #ffffff;
+    background-color: #fff;
+    color: #000;
     border: 1px solid transparent;
     border-radius: 5px;
     font-size: 16px;
@@ -40,14 +40,17 @@
     border: 1px solid #F2545B;
     border-radius: 5px;
     margin-bottom: 10px;
-    padding: 15px;
-    
+    padding: 25px;
+}
+
+.InnerPanel {
+    text-align: center;
 }
 
 .MenuButton:enabled {
     border: 1px solid transparent;
     border-radius: 5px;
-    padding: 15px;
+    padding: 10px;
 }
 
 .MenuButton:disabled {
@@ -67,14 +70,24 @@
 }
 
 #KeyPanel {
-    margin: 50px 150px;
     border: 1px solid #fff;
-    padding: 25px;
+    border-radius: 5px;
     text-align: center;
     font-size: 50px;
+    margin-bottom: 10px;
+    padding: 25px;
+}
+
+#TimerLabel, #ScoreLabel {
+    font-size: 45px;
 }
 
 #NumPad {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#GameArea {
+    display: flex;
+    justify-content: space-between;
 }

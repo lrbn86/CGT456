@@ -27,7 +27,9 @@ namespace Project1
         protected void StartGame(object sender, EventArgs e)
         {
             Introduction.Visible = false; // The game introduction message will no longer be in view
+            GameDifficulty.Visible = false; // The game difficulty selection will no longer be in view
             Message.Text = "Tap the number that corresponds to the number in the white box.";
+            SetGameDifficulty();
             EnableNumberButtons(); // Enable the number buttons
             IncreaseTimeButton.Enabled = false; // The player can no longer increase the time
             DecreaseTimeButton.Enabled = false; // The player can no longer decrease the time
@@ -45,6 +47,7 @@ namespace Project1
         protected void QuitGame(object sender, EventArgs e)
         {
             Introduction.Visible = true; // Bring back the game introduction message into view
+            GameDifficulty.Visible = true; // Bring back the game difficulty selection into view
             IncreaseTimeButton.Enabled = true; // Enable the increase timer button
             DecreaseTimeButton.Enabled = true; // Enable the decrease timer button
             StartGameButton.Enabled = true; // Enable the start game button
@@ -238,5 +241,21 @@ namespace Project1
                 TimerLabel.Text = "0";
             }
         } // end DecreaseTime
+
+        protected void SetGameDifficulty()
+        {
+            if (EasyMode.Checked)
+            {
+                Timer1.Interval = 1000;
+            }
+            else if (MediumMode.Checked)
+            {
+                Timer1.Interval = 600;
+            }
+            else if (HardMode.Checked)
+            {
+                Timer1.Interval = 300;
+            }
+        }
     }
 }
