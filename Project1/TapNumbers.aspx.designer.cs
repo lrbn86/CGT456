@@ -51,6 +51,24 @@ namespace Project1
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Introduction;
 
         /// <summary>
+        /// UsernameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label UsernameLabel;
+
+        /// <summary>
+        /// UsernameTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UsernameTextbox;
+
+        /// <summary>
         /// GameDifficulty control.
         /// </summary>
         /// <remarks>

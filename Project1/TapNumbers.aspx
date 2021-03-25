@@ -19,6 +19,12 @@
 						<p>Each incorrect number tapped will deduct the timer by 30. When the time is up, the game is over.</p>
 						<p>You may quit the game at any time. The timer and score will reset.</p>
 					</div>
+					<div class="Panel">
+						<span>Name:
+                            <asp:Label ID="UsernameLabel" runat="server" Text=""></asp:Label>
+						</span>
+                        <asp:TextBox ID="UsernameTextbox" runat="server"></asp:TextBox>
+					</div>
 					<div id="GameDifficulty" class="Panel" runat="server">
 						<p>Select game difficulty:</p>
 						<div><asp:RadioButton ID="EasyMode" Text=" Easy" GroupName="Difficulty" runat="server" Checked="true"/></div>

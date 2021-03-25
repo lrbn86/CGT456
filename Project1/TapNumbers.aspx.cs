@@ -19,6 +19,7 @@ namespace Project1
                 Session["maxTime"] = 100; // Set the max (initial) time to be 100
                 ResetTimerDisplay(); // Reset the timer
                 DisableNumberButtons(); // Disable the number buttons
+                UsernameLabel.Visible = false; // The username label is not viewable because the user has not entered their name yet.
                 QuitGameButton.Enabled = false; // The quit game button will not be clickable
                 QuitGameButton.Visible = false; // The quit game button will not be viewable
             }
@@ -28,6 +29,10 @@ namespace Project1
         {
             Introduction.Visible = false; // The game introduction message will no longer be in view
             GameDifficulty.Visible = false; // The game difficulty selection will no longer be in view
+            UsernameTextbox.Visible = false; // The username textbox is no longer in view.
+            Session["Username"] = UsernameTextbox.Text; // Use session variable so that if the user quits the game, their name will still persist.
+            UsernameLabel.Text = Session["Username"].ToString(); // Obtain from session variable
+            UsernameLabel.Visible = true; // The username label is now viewable and obtained from session variable
             Message.Text = "Tap the number that corresponds to the number in the white box.";
             SetGameDifficulty();
             EnableNumberButtons(); // Enable the number buttons
