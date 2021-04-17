@@ -1,0 +1,15 @@
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\bin\Debug\MemoryMatch.exe.config
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\bin\Debug\MemoryMatch.exe
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\bin\Debug\MemoryMatch.pdb
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MainWindow.g.cs
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\App.g.cs
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch_MarkupCompile.cache
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch_MarkupCompile.lref
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MainWindow.baml
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.g.resources
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.Properties.Resources.resources
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.csproj.GenerateResource.cache
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.csproj.CoreCompileInputs.cache
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.exe
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.pdb
+C:\Users\Brandon\Desktop\cgt456\MemoryMatch\obj\Debug\MemoryMatch.csprojAssemblyReference.cache
