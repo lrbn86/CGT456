@@ -27,7 +27,7 @@ namespace Project2 {
 
         private SoundPlayer soundPlayer; // Used to play sound effects, it can be used anywhere in this class
 
-		// Holds the difficulty levels
+		// Holds the difficulty levels (a string is mapped to an integer, in this case the difficulty is matched to the millseconds used for managing delays)
 		Dictionary<string, int> difficulty = new Dictionary<string, int>() {
 			{"easy", 1000}, {"medium", 700}, {"hard", 300}
 		};
