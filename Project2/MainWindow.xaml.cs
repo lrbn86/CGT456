@@ -44,6 +44,8 @@ namespace Project2 {
         // This List contains the colors to be played. It will be used to match/validate the player's inputs.
         // Each time the player guesses correctly, this List will add another random color
         private List<String> correctColors = new List<String>();
+
+        private List<String> playerColorsInput = new List<String>();
      
 
         public MainWindow() {
@@ -87,6 +89,8 @@ namespace Project2 {
                 soundPlayer.Stream = Properties.Resources.G_note;
                 color = "blue";
             }
+
+            playerColorsInput.Add(color);
 
             Play_Color(color);
             Validate_Player_Input(color);
@@ -196,7 +200,7 @@ namespace Project2 {
 
             // For debugging purposes if there are no colors to sequence through
             if (correctColors.Count <= 0) {
-                Console.WriteLine("There is no colors to play!");
+                Console.WriteLine("There are no colors to play!");
                 return;
             }
 
@@ -213,12 +217,24 @@ namespace Project2 {
 
         // TODO: Add the functionality of the player to guess correctly, separate function?
 		private void Validate_Player_Input(string color) {
+            bool isCorrect = true;
 
-            bool isCorrect = false;
-
-            // If the player guesses correctly, add another random color to the colors sequence
-            if (isCorrect) {
-                correctColors.Add(Get_Random_Color());
+            if (correctColors.Count == playerColorsInput.Count) {
+                for (int i = 0; i < correctColors.Count; i++) {
+                    if (correctColors[i] != playerColorsInput[i]) {
+                        isCorrect = false;
+                    }
+                }
+                if (isCorrect) {
+                    Console.WriteLine("Correct");
+                    correctColors.Add(Get_Random_Color());
+                    playerColorsInput.Clear();
+                    Play_Pattern();
+                } else {
+                    Console.WriteLine("Wrong");
+                    playerColorsInput.Clear();
+                    Play_Pattern();
+                }
             }
 
 		} // Validate_Player_Input
