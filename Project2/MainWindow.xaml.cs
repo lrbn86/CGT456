@@ -24,7 +24,6 @@ namespace Project2 {
     public partial class MainWindow : Window {
 
         private int numTries;
-        private int maxTries;
 
         private int score;
 
@@ -62,9 +61,12 @@ namespace Project2 {
             time = difficulty[mode];
             soundPlayer = new SoundPlayer();
 			canClick = false;
-            numTries = 0;
-            maxTries = 3;
+            numTries = 3;
             score = 0;
+            StatusText.Text = "";
+            ScoreText.Text = score.ToString();
+            TriesText.Text = numTries.ToString();
+            StatusText.Visibility = Visibility.Hidden;
 			Disable_Color_Buttons(); // Remove the hand cursor on the color buttons
             Reset_Fill_Color_Buttons(); // Initially, the radial gradient is on the buttons, so remove it
 
@@ -109,6 +111,7 @@ namespace Project2 {
         private void Start_Game(object sender, RoutedEventArgs e) {
 
             StartText.Visibility = Visibility.Hidden; // Remove the start text from view
+            StatusText.Visibility = Visibility.Visible;
             Play_Pattern(); // Start playing the pattern the player should follow
             correctColors.Add(Get_Random_Color()); // Add a random color into the color sequence
 
@@ -226,13 +229,20 @@ namespace Project2 {
 
 		private void Validate_Player_Input() {
 
+            Enable_Color_Buttons(); // If the player did get incorrect sequence guess, then renable the buttons
+
             // This function is responsibile for checking if the player is clicking/tapping the correct colors sequence
 
             // This loop checks to see if the player is on the right track. It gives an immediate feedback if the player inputs a color that is not in order or in the correctColors list
             if (playerColorsInput.Count <= correctColors.Count) {
                 for (int i = 0; i < playerColorsInput.Count; i++) {
                     if (playerColorsInput[i] != correctColors[i]) {
-                        // TODO: Give indication that the player messed up
+                        Disable_Color_Buttons(); // Prevent player from clicking on the color buttons when the player is incorrect (e.g. prevent the player from rapidly clicking on the color button)
+                        Update_Tries();
+                        if (Is_Game_Over()) {
+                            return;
+                        }
+                        Show_Status("X");
                         playerColorsInput.Clear(); // Clear player inputs
                         Play_Pattern(); // Replay the pattern sequence because the player was wrong
                         return; // Return to caller (i.e. prevent from executing the code below)
@@ -242,7 +252,8 @@ namespace Project2 {
 
             // Otherwise, the player is on the right track
             if (correctColors.Count == playerColorsInput.Count) {
-                // TODO: Give indication that the player got it right
+                Update_Score();
+                Show_Status("OK!");
                 correctColors.Add(Get_Random_Color()); // Add a random color
                 playerColorsInput.Clear(); // Clear player inputs
                 Play_Pattern(); // Play the pattern with the new color added
@@ -251,20 +262,34 @@ namespace Project2 {
 		} // Validate_Player_Input
 
         // TODO: Add a losing condition. Should the player continue playing or will there be a loss popup?
-		private void Game_Over() {
-            if (numTries > maxTries) {
-                Console.WriteLine("GAME OVER");
-            }
-		} // end Game_Over
+        // How should we handle game over? Right now, the player cannot do anything after game over.
+        // Need to provide a play-again button or something?
+		private bool Is_Game_Over() {
 
-        // TODO: Add score, each successful guesses will give a score. There is no "win" condition as the game will continue forever until the player fails
+            if (numTries <= 0) {
+                StatusText.FontSize = 12;
+                StatusText.Text = "GAME OVER";
+                Disable_Color_Buttons();
+                return true;
+            }
+            return false;
+
+		} // end Is_Game_Over
+
+        // Add score, each successful guesses will give a score. There is no "win" condition as the game will continue forever until the player fails
 		private void Update_Score() {
+
             score++;
+            ScoreText.Text = score.ToString();
+
 		} // end Update_Score
 
-        // TODO: Add number of tries left, maybe 3 max, after that it's game over
+        // Add number of tries left, maybe 3 max, after that it's game over
 		private void Update_Tries() {
-            numTries++;
+
+            numTries--;
+            TriesText.Text = numTries.ToString();
+
 		} // end Update_Tries
 
         // TODO: Add the ability to adjust game difficulty (may or may not implement this depending on mood)
@@ -282,6 +307,12 @@ namespace Project2 {
 
         }
 
+        private async void Show_Status(string status) {
+            StatusText.Text = status;
+            await Task.Delay(1000);
+            StatusText.Text = "";
+        } // end Show_Status
+
         private void Print_List(List<String> list) {
 
             // This function helps to debug the list contents
@@ -289,7 +320,7 @@ namespace Project2 {
 
         } // end Print_List
 
-		/////////// END UTILITY FUNCTIONS /////////// 
+        /////////// END UTILITY FUNCTIONS /////////// 
 
     } // end MainWindow
 
