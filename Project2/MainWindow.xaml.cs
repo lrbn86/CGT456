@@ -263,7 +263,7 @@ namespace Project2 {
 
         // TODO: Add a losing condition. Should the player continue playing or will there be a loss popup?
         // How should we handle game over? Right now, the player cannot do anything after game over.
-        // Need to provide a play-again button or something?
+        // Need to provide a play-again button or something? Or should we just reset without needing to provide play again button
 		private bool Is_Game_Over() {
 
             if (numTries <= 0) {
