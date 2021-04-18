@@ -175,6 +175,19 @@ namespace Project2 {
 
 		} // end Disable_Fill_Buttons
 
+        private void Enable_Color_Buttons() {
+
+			canClick = true; // The player can click on the colors
+
+            // This function removes the cursor hand on the colors. It is used when the player cannot click on the colors;
+
+            GreenButton.Cursor = Cursors.Hand;
+			RedButton.Cursor = Cursors.Hand;
+			OrangeButton.Cursor = Cursors.Hand;
+			BlueButton.Cursor = Cursors.Hand;
+
+        }
+
         private async void Play_Pattern() { // The function will be running asynchronously, this prevents UI main thread block
 
 			Disable_Color_Buttons();
@@ -194,7 +207,7 @@ namespace Project2 {
                 // time variable can be used if we want to adjust difficulty (e.g. shorter time between each color to be presented which may prove to be more difficult)
             }
 
-			canClick = true; // Now the player can click on the colors
+            Enable_Color_Buttons();
 
         } // end Play_Pattern
 
