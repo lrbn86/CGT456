@@ -93,7 +93,7 @@ namespace Project2 {
             playerColorsInput.Add(color);
 
             Play_Color(color);
-            Validate_Player_Input(color);
+            Validate_Player_Input();
             
         } // end Buttons_Click
 
@@ -215,30 +215,28 @@ namespace Project2 {
 
         } // end Play_Pattern
 
-        // TODO: Add the functionality of the player to guess correctly, separate function?
-		private void Validate_Player_Input(string color) {
+		private void Validate_Player_Input() {
 
-            Print_List(correctColors);
-            Print_List(playerColorsInput);
+            // This function is responsibile for checking if the player is clicking/tapping the correct colors sequence
 
             // This loop checks to see if the player is on the right track. It gives an immediate feedback if the player inputs a color that is not in order or in the correctColors list
             if (playerColorsInput.Count <= correctColors.Count) {
                 for (int i = 0; i < playerColorsInput.Count; i++) {
                     if (playerColorsInput[i] != correctColors[i]) {
-                        Console.WriteLine("Not Quite");
-                        playerColorsInput.Clear();
-                        Play_Pattern();
-                        return;
+                        // TODO: Give indication that the player messed up
+                        playerColorsInput.Clear(); // Clear player inputs
+                        Play_Pattern(); // Replay the pattern sequence because the player was wrong
+                        return; // Return to caller (i.e. prevent from executing the code below)
                     }
                 }
             }
 
             // Otherwise, the player is on the right track
             if (correctColors.Count == playerColorsInput.Count) {
-                Console.WriteLine("Correct");
-                correctColors.Add(Get_Random_Color());
-                playerColorsInput.Clear();
-                Play_Pattern();
+                // TODO: Give indication that the player got it right
+                correctColors.Add(Get_Random_Color()); // Add a random color
+                playerColorsInput.Clear(); // Clear player inputs
+                Play_Pattern(); // Play the pattern with the new color added
             }
 
 		} // Validate_Player_Input
@@ -263,6 +261,8 @@ namespace Project2 {
 
         private string Get_Random_Color() {
 
+            // This function generates a random color string (e.g. 'red', 'yellow', 'blue', or 'green')
+
             Random rnd = new Random();
             string color = mainColors[rnd.Next(0, mainColors.Count - 1)];
             return color;
@@ -270,8 +270,11 @@ namespace Project2 {
         }
 
         private void Print_List(List<String> list) {
+
+            // This function helps to debug the list contents
             Console.WriteLine("[" + String.Join(", ", list) + "]");
-        }
+
+        } // end Print_List
 
 		/////////// END UTILITY FUNCTIONS /////////// 
 
