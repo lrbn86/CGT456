@@ -217,24 +217,28 @@ namespace Project2 {
 
         // TODO: Add the functionality of the player to guess correctly, separate function?
 		private void Validate_Player_Input(string color) {
-            bool isCorrect = true;
 
-            if (correctColors.Count == playerColorsInput.Count) {
-                for (int i = 0; i < correctColors.Count; i++) {
-                    if (correctColors[i] != playerColorsInput[i]) {
-                        isCorrect = false;
+            Print_List(correctColors);
+            Print_List(playerColorsInput);
+
+            // This loop checks to see if the player is on the right track. It gives an immediate feedback if the player inputs a color that is not in order or in the correctColors list
+            if (playerColorsInput.Count <= correctColors.Count) {
+                for (int i = 0; i < playerColorsInput.Count; i++) {
+                    if (playerColorsInput[i] != correctColors[i]) {
+                        Console.WriteLine("Not Quite");
+                        playerColorsInput.Clear();
+                        Play_Pattern();
+                        return;
                     }
                 }
-                if (isCorrect) {
-                    Console.WriteLine("Correct");
-                    correctColors.Add(Get_Random_Color());
-                    playerColorsInput.Clear();
-                    Play_Pattern();
-                } else {
-                    Console.WriteLine("Wrong");
-                    playerColorsInput.Clear();
-                    Play_Pattern();
-                }
+            }
+
+            // Otherwise, the player is on the right track
+            if (correctColors.Count == playerColorsInput.Count) {
+                Console.WriteLine("Correct");
+                correctColors.Add(Get_Random_Color());
+                playerColorsInput.Clear();
+                Play_Pattern();
             }
 
 		} // Validate_Player_Input
@@ -257,7 +261,7 @@ namespace Project2 {
 		private void Set_Game_Difficulty() {
 		} // Set_Game_Difficulty
 
-        private String Get_Random_Color() {
+        private string Get_Random_Color() {
 
             Random rnd = new Random();
             string color = mainColors[rnd.Next(0, mainColors.Count - 1)];
@@ -265,7 +269,9 @@ namespace Project2 {
 
         }
 
-        // TODO: Add credits
+        private void Print_List(List<String> list) {
+            Console.WriteLine("[" + String.Join(", ", list) + "]");
+        }
 
 		/////////// END UTILITY FUNCTIONS /////////// 
 
