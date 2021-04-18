@@ -23,6 +23,11 @@ namespace Project2 {
     /// </summary>
     public partial class MainWindow : Window {
 
+        private int numTries;
+        private int maxTries;
+
+        private int score;
+
 		private bool canClick; // Use flag to determine whether the player can click on the colors
 
         private SoundPlayer soundPlayer; // Used to play sound effects, it can be used anywhere in this class
@@ -45,6 +50,7 @@ namespace Project2 {
         // Each time the player guesses correctly, this List will add another random color
         private List<String> correctColors = new List<String>();
 
+        // This List contains the colors the player has clicked/tapped on. It should be cleared every time the player got the sequence right or wrong.
         private List<String> playerColorsInput = new List<String>();
      
 
@@ -56,6 +62,9 @@ namespace Project2 {
             time = difficulty[mode];
             soundPlayer = new SoundPlayer();
 			canClick = false;
+            numTries = 0;
+            maxTries = 3;
+            score = 0;
 			Disable_Color_Buttons(); // Remove the hand cursor on the color buttons
             Reset_Fill_Color_Buttons(); // Initially, the radial gradient is on the buttons, so remove it
 
@@ -243,19 +252,23 @@ namespace Project2 {
 
         // TODO: Add a losing condition. Should the player continue playing or will there be a loss popup?
 		private void Game_Over() {
+            if (numTries > maxTries) {
+                Console.WriteLine("GAME OVER");
+            }
 		} // end Game_Over
 
         // TODO: Add score, each successful guesses will give a score. There is no "win" condition as the game will continue forever until the player fails
-		// This might be an event handler function
 		private void Update_Score() {
+            score++;
 		} // end Update_Score
 
         // TODO: Add number of tries left, maybe 3 max, after that it's game over
-		// This might be an event handler function
 		private void Update_Tries() {
+            numTries++;
 		} // end Update_Tries
 
         // TODO: Add the ability to adjust game difficulty (may or may not implement this depending on mood)
+        // This may be an event handler...
 		private void Set_Game_Difficulty() {
 		} // Set_Game_Difficulty
 
