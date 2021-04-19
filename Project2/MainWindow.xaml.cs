@@ -23,9 +23,9 @@ namespace Project2 {
     /// </summary>
     public partial class MainWindow : Window {
 
-        private int numTries;
+        private int numTries; // The player will have limited tries to guess the correct sequence
 
-        private int score;
+        private int score; // Although there is no "win" condition, this keeps track of how many correct guesses on the sequence
 
 		private bool canClick; // Use flag to determine whether the player can click on the colors
 
@@ -55,8 +55,9 @@ namespace Project2 {
 
         public MainWindow() {
 
-			// Initialize variables and UI
+			// Initialize variables and user interface
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen; // Start up the window in the center of the screen instead of the default at the corner.
 			mode = "easy";
             time = difficulty[mode];
             soundPlayer = new SoundPlayer();
@@ -109,28 +110,13 @@ namespace Project2 {
         } // end Buttons_Click
 
         private void Start_Game(object sender, RoutedEventArgs e) {
-
-            StartText.Visibility = Visibility.Hidden; // Remove the start text from view
+            Reset_Game();
             StatusText.Visibility = Visibility.Visible;
             Play_Pattern(); // Start playing the pattern the player should follow
             correctColors.Add(Get_Random_Color()); // Add a random color into the color sequence
 
         } // end Start_Game
 
-        private void Mouse_Enter(object sender, RoutedEventArgs e) {
-
-            // For now, this function will change the opacity of the start text upon hover (e.g. CSS hover effect)
-            StartText.Opacity = .8;
-
-        } // end Mouse_Enter
-
-        private void Mouse_Leave (object sender, RoutedEventArgs e) {
-
-            // For now, this function will change the opacity of the start text when not hovering (e.g. CSS hover effect)
-            StartText.Opacity = 1;
-
-        } // end Mouse_Leave
-		
 		/////////// END EVENT HANDLERS /////////// 
 
 		/////////// BEGIN UTILITY FUNCTIONS /////////// 
@@ -176,7 +162,7 @@ namespace Project2 {
             OrangeButtonFill.Color = Colors.Orange;
             BlueButtonFill.Color = Colors.Blue;
 
-        } // end Reset_Fill_Buttons
+        } // end Reset_Fill_Color_Buttons
 
 		private void Disable_Color_Buttons() {
 
@@ -202,7 +188,7 @@ namespace Project2 {
 			OrangeButton.Cursor = Cursors.Hand;
 			BlueButton.Cursor = Cursors.Hand;
 
-        }
+        } // end Enable_Color_Buttons
 
         private async void Play_Pattern() { // The function will be running asynchronously, this prevents UI main thread block
 
@@ -259,16 +245,18 @@ namespace Project2 {
                 Play_Pattern(); // Play the pattern with the new color added
             }
 
-		} // Validate_Player_Input
+		} // end Validate_Player_Input
 
-        // TODO: Add a losing condition. Should the player continue playing or will there be a loss popup?
-        // How should we handle game over? Right now, the player cannot do anything after game over.
-        // Need to provide a play-again button or something? Or should we just reset without needing to provide play again button
 		private bool Is_Game_Over() {
+
+            // This function will be used if the game is over. In this case, if the numTries is <= 0, then tell the player the game is over and disable the buttons
+            // Allow the player to replay the game.
 
             if (numTries <= 0) {
                 StatusText.FontSize = 12;
                 StatusText.Text = "GAME OVER";
+                StartGame.Content = "Play Again";
+                StartGame.IsEnabled = true;
                 Disable_Color_Buttons();
                 return true;
             }
@@ -305,9 +293,10 @@ namespace Project2 {
             string color = mainColors[rnd.Next(0, mainColors.Count - 1)];
             return color;
 
-        }
+        } // end Get_Random_Color
 
         private async void Show_Status(string status) {
+            // This function show indicators of whether the player guessed correctly or not. It is shown in the middle.
             StatusText.Text = status;
             await Task.Delay(1000);
             StatusText.Text = "";
@@ -319,6 +308,18 @@ namespace Project2 {
             Console.WriteLine("[" + String.Join(", ", list) + "]");
 
         } // end Print_List
+
+        private void Reset_Game() {
+            // This function resets score and tries and clears out the lists. This is used when we are playing a new game.
+            numTries = 3;
+            score = 0;
+            ScoreText.Text = score.ToString();
+            TriesText.Text = numTries.ToString();
+            correctColors.Clear();
+            playerColorsInput.Clear();
+            StartGame.IsEnabled = false;
+            StatusText.Text = "";
+        } // end Reset_Game
 
         /////////// END UTILITY FUNCTIONS /////////// 
 
