@@ -32,6 +32,7 @@ namespace Project2 {
         private SoundPlayer soundPlayer; // Used to play sound effects, it can be used anywhere in this class
 
 		// Holds the difficulty levels (a string is mapped to an integer, in this case the difficulty is matched to the millseconds used for managing delays)
+        // May be implemented in the future..., but the default difficulty will be "easy" and can only be configured here for now.
 		Dictionary<string, int> difficulty = new Dictionary<string, int>() {
 			{"easy", 1000}, {"medium", 700}, {"hard", 300}
 		};
@@ -58,16 +59,16 @@ namespace Project2 {
 			// Initialize variables and user interface
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen; // Start up the window in the center of the screen instead of the default at the corner.
-			mode = "easy";
-            time = difficulty[mode];
-            soundPlayer = new SoundPlayer();
-			canClick = false;
-            numTries = 3;
-            score = 0;
-            StatusText.Text = "";
-            ScoreText.Text = score.ToString();
-            TriesText.Text = numTries.ToString();
-            StatusText.Visibility = Visibility.Hidden;
+			mode = "easy"; // Future implementation would player to configure difficulty
+            time = difficulty[mode]; // Future implementation would allow player to configure difficulty
+            soundPlayer = new SoundPlayer(); // Used to play sounds
+			canClick = false; // Set to determine whether player can click on the solid colors
+            numTries = 3; // The player only has 3 tries, future implementations would allow player to configure this
+            score = 0; // Initially, the player has no score
+            StatusText.Text = ""; // Clear status text
+            ScoreText.Text = score.ToString(); // Set the score display to show the appropriate variable
+            TriesText.Text = numTries.ToString(); // Set the tries display to show the appropriate variable
+            StatusText.Visibility = Visibility.Hidden; // Initially, the player cannot see the status text
 			Disable_Color_Buttons(); // Remove the hand cursor on the color buttons
             Reset_Fill_Color_Buttons(); // Initially, the radial gradient is on the buttons, so remove it
 
@@ -85,7 +86,7 @@ namespace Project2 {
             // This function is called when the "buttons" are clicked/tapped on.
     
             Rectangle b = (Rectangle)sender;
-            string color = "";
+            string color = ""; // Used to determine which color was clicked
             
             // Set the sound player stream to the appropriate sound effect according to which color
             if (b.Name.Equals("GreenButton")) {
@@ -102,16 +103,18 @@ namespace Project2 {
                 color = "blue";
             }
 
-            playerColorsInput.Add(color);
+            playerColorsInput.Add(color); // Store all player's colors that have been clicked on
 
-            Play_Color(color);
-            Validate_Player_Input();
+            Play_Color(color); // Play the sound and highlight that color
+            Validate_Player_Input(); // See if the player's last color click would be correct
             
         } // end Buttons_Click
 
         private void Start_Game(object sender, RoutedEventArgs e) {
             Reset_Game();
             StatusText.Visibility = Visibility.Visible;
+            StatusText.FontSize = 24;
+            StatusText.Text = "Ready?";
             Play_Pattern(); // Start playing the pattern the player should follow
             correctColors.Add(Get_Random_Color()); // Add a random color into the color sequence
 
@@ -194,7 +197,8 @@ namespace Project2 {
 
 			Disable_Color_Buttons();
 
-            await Task.Delay(1000); // 1 second delay to allow the player to prepare for color sequence to follow. This is used instead of Thread.Sleep because it would freeze everything. This will not block main thread.
+            await Task.Delay(2000);
+            StatusText.Text = "Follow";
 
             // For debugging purposes if there are no colors to sequence through
             if (correctColors.Count <= 0) {
@@ -209,6 +213,7 @@ namespace Project2 {
                 // time variable can be used if we want to adjust difficulty (e.g. shorter time between each color to be presented which may prove to be more difficult)
             }
 
+            StatusText.Text = "Your Turn";
             Enable_Color_Buttons();
 
         } // end Play_Pattern
@@ -228,7 +233,7 @@ namespace Project2 {
                         if (Is_Game_Over()) {
                             return;
                         }
-                        Show_Status("X");
+                        Show_Status("Try again!", 18);
                         playerColorsInput.Clear(); // Clear player inputs
                         Play_Pattern(); // Replay the pattern sequence because the player was wrong
                         return; // Return to caller (i.e. prevent from executing the code below)
@@ -239,7 +244,7 @@ namespace Project2 {
             // Otherwise, the player is on the right track
             if (correctColors.Count == playerColorsInput.Count) {
                 Update_Score();
-                Show_Status("OK!");
+                Show_Status("OK!", 24);
                 correctColors.Add(Get_Random_Color()); // Add a random color
                 playerColorsInput.Clear(); // Clear player inputs
                 Play_Pattern(); // Play the pattern with the new color added
@@ -253,7 +258,7 @@ namespace Project2 {
             // Allow the player to replay the game.
 
             if (numTries <= 0) {
-                StatusText.FontSize = 12;
+                StatusText.FontSize = 14;
                 StatusText.Text = "GAME OVER";
                 StartGame.Content = "Play Again";
                 StartGame.IsEnabled = true;
@@ -280,11 +285,6 @@ namespace Project2 {
 
 		} // end Update_Tries
 
-        // TODO: Add the ability to adjust game difficulty (may or may not implement this depending on mood)
-        // This may be an event handler...
-		private void Set_Game_Difficulty() {
-		} // Set_Game_Difficulty
-
         private string Get_Random_Color() {
 
             // This function generates a random color string (e.g. 'red', 'yellow', 'blue', or 'green')
@@ -295,11 +295,13 @@ namespace Project2 {
 
         } // end Get_Random_Color
 
-        private async void Show_Status(string status) {
+        private async void Show_Status(string status, int fontSize) {
             // This function show indicators of whether the player guessed correctly or not. It is shown in the middle.
             StatusText.Text = status;
+            StatusText.FontSize = fontSize;
             await Task.Delay(1000);
             StatusText.Text = "";
+            StatusText.FontSize = 24; // Reset to default font size.
         } // end Show_Status
 
         private void Print_List(List<String> list) {

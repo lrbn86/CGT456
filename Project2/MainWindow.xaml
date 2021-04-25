@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project2"
         mc:Ignorable="d"
-        Title="Spring 2021 CGT 456 Project 2 - Simon by Brandon Nguyen" Height="600" Width="800" ResizeMode="NoResize">
+        Title="Spring 2021 CGT 456 Project 2 - Simon Clone by Brandon Nguyen" Height="600" Width="800" ResizeMode="NoResize">
     <Grid>
         <Canvas Width="800" Height="600">
             <Rectangle x:Name="GreenButton" MouseLeftButtonDown="Buttons_Click" Cursor="Hand" Stroke="Black" StrokeThickness="10" RadiusX="10" RadiusY="10" Width="250" Height="250" Canvas.Left="150" Canvas.Top="25">
@@ -40,8 +40,8 @@
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Ellipse x:Name="ColorSelectionButton" Width="100" Height="100" Fill="White" Stroke="Black" StrokeThickness="10" Canvas.Left="350" Canvas.Top="230"/>
-            <TextBlock x:Name="StatusText" Text="Game Over" Canvas.Left="364" Canvas.Top="271" TextAlignment="Center" Height="54" Width="75" FontSize="14" />
+            <Ellipse x:Name="ColorSelectionButton" Width="160" Height="160" Fill="White" Stroke="Black" StrokeThickness="10" Canvas.Left="320" Canvas.Top="208"/>
+            <TextBlock x:Name="StatusText" Text="Game Over" Canvas.Left="335" Canvas.Top="275" TextAlignment="Center" Height="54" Width="130" FontSize="24" />
             <TextBlock Height="23" Canvas.Left="20" TextWrapping="Wrap" Text="Score: " Canvas.Top="209" Width="40"/>
             <TextBlock x:Name="ScoreText" Height="77" Canvas.Left="20" TextWrapping="Wrap" Text="0" Canvas.Top="232" Width="100" TextAlignment="Center" FontFamily="Impact" FontSize="64" />
             <TextBlock Height="23" Canvas.Left="20" TextWrapping="Wrap" Text="Tries Left:" Canvas.Top="345" Width="65"/>
